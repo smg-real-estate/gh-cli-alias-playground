@@ -1,42 +1,83 @@
-# GitHub CLI Aliases
+# GitHub Start Work CLI
 
-A collection of useful GitHub CLI aliases with integrated testing.
+A CLI tool that helps streamline the process of starting work on a new task by automating branch creation and pull request setup.
 
 ## Installation
 
-1. Clone this repository
-2. Run the installation script:
-
 ```bash
-./scripts/install-aliases.sh
-```
-## Available Aliases
+# Install from your private registry
+yarn add @your-org/gh-start-work
 
-### start-work
-
-Creates a new branch and PR for starting work on a ticket.
-
-Usage:
-```bash
-gh start-work <JIRA_TICKET> [ISSUE_TYPE]
+# Or globally
+yarn global add @your-org/gh-start-work
 ```
 
-See [start-work documentation](aliases/start-work/README.md) for more details.
+## Prerequisites
+
+- Git repository with an origin remote configured
+- GitHub CLI installed and authenticated
+- Write access to the repository
+
+## Usage
+
+```bash
+gh-start-work <JIRA_TICKET> [ISSUE_TYPE]
+```
+
+### Arguments
+
+- `JIRA_TICKET` (Required): The Jira ticket number/ID that this work relates to
+- `ISSUE_TYPE` (Optional): Type of issue you're working on. Defaults to "feature"
+  - Valid values: `feature`, `bug`, `maintenance`, `chore`
+
+### Examples
+
+```bash
+# Start work on a feature
+gh-start-work PROJ-123
+
+# Start work on a bug fix
+gh-start-work PROJ-456 bug
+
+# Start work on a maintenance task
+gh-start-work PROJ-789 maintenance
+
+# Start work on a chore
+gh-start-work PROJ-101 chore
+```
+
+## What it does
+
+When you run this command, it will:
+
+1. Create a new branch named `<ISSUE_TYPE>/<JIRA_TICKET>`
+2. Append a new section to `.changes.md` with the branch name as the title
+3. Commit the updated `.changes.md` file
+4. Push the branch to the remote repository
+5. Create a pull request in DRAFT state with:
+   - Title: Branch name
+   - Body: "Work started on <branch_name>"
+   - Base branch: main
 
 ## Development
 
-### Running Tests
-
-To run all tests:
 ```bash
-for test_file in tests/integration/.test.sh; do
-bash "$test_file"
-done
-```
-### Adding New Aliases
+# Install dependencies
+yarn install
 
-1. Create a new directory under `aliases/` for your alias
-2. Add your alias script as `alias.sh`
-3. Add documentation in `README.md`
-4. Add tests in `tests/integration/`
-5. Submit a PR!
+# Build
+yarn build
+
+# Run locally
+yarn dev
+
+# Run tests
+yarn test
+```
+
+## Publishing
+
+```bash
+# Bump version in package.json, then:
+yarn publish
+```

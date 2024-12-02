@@ -19,8 +19,12 @@ gh start-work <JIRA_TICKET> [ISSUE_TYPE]
 ### Arguments
 
 - `JIRA_TICKET` (Required): The Jira ticket number/ID that this work relates to
-- `ISSUE_TYPE` (Optional): Type of issue you're working on. Defaults to "feature"
-  - Valid values: `feature`, `bug`, `maintenance`, `chore`
+- `ISSUE_TYPE` (Optional): Type of issue you're working on. Defaults to "feat"
+  - Valid values:
+    - `feat`: new feature for the user
+    - `fix`: bug fix for the user
+    - `refactor`: code refactoring (e.g. renaming a variable)
+    - `chore`: anything else (build tasks, documentation, style, etc.)
 
 ### Options
 
@@ -33,10 +37,10 @@ gh start-work <JIRA_TICKET> [ISSUE_TYPE]
 gh start-work PROJ-123
 
 # Start work on a bug fix
-gh start-work PROJ-456 bug
+gh start-work PROJ-456 fix
 
-# Start work on a maintenance task
-gh start-work PROJ-789 maintenance
+# Start work on a refactor
+gh start-work PROJ-789 refactor
 
 # Start work on a chore
 gh start-work PROJ-101 chore

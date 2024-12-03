@@ -13,14 +13,22 @@ This alias is installed automatically when you run the installation script:
 ## Usage
 
 ```bash
-gh start-work <JIRA_TICKET> [ISSUE_TYPE]
+gh start-work <JIRA_TICKET> [ISSUE_TYPE] [PR_TITLE]
 ```
 
 ### Arguments
 
 - `JIRA_TICKET` (Required): The Jira ticket number/ID that this work relates to
-- `ISSUE_TYPE` (Optional): Type of issue you're working on. Defaults to "feature"
-  - Valid values: `feature`, `bug`, `maintenance`, `chore`
+- `ISSUE_TYPE` (Optional): Type of issue you're working on. Defaults to "feat"
+  - Valid values:
+    - `feat`: new feature for the user
+    - `fix`: bug fix for the user
+    - `refactor`: code refactoring (e.g. renaming a variable)
+    - `chore`: anything else (build tasks, documentation, style, etc.)
+- `PR_TITLE` (Optional): Additional descriptive text for the PR title
+  - Will be appended after the branch name
+  - If provided, PR title will be: "<branch_name>: <PR_TITLE>"
+  - If omitted, PR title will just be the branch name
 
 ### Options
 
@@ -32,14 +40,14 @@ gh start-work <JIRA_TICKET> [ISSUE_TYPE]
 # Start work on a feature
 gh start-work PROJ-123
 
-# Start work on a bug fix
-gh start-work PROJ-456 bug
+# Start work on a bug fix with a custom PR title
+gh start-work PROJ-456 fix "Fix login button styling"
 
-# Start work on a maintenance task
-gh start-work PROJ-789 maintenance
+# Start work on a refactor with a descriptive title
+gh start-work PROJ-789 refactor "Reorganize component structure"
 
 # Start work on a chore
-gh start-work PROJ-101 chore
+gh start-work PROJ-101 chore "Update dependencies"
 ```
 
 ## What it does
@@ -51,7 +59,7 @@ When you run this command, it will:
 3. Commit the updated `.changes.md` file
 4. Push the branch to the remote repository
 5. Create a pull request in DRAFT state with:
-   - Title: Branch name
+   - Title: Branch name (and optional PR title if provided)
    - Body: "Work started on <branch_name>"
    - Base branch: main
 

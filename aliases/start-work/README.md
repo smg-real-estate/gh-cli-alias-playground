@@ -25,6 +25,11 @@ gh start-work <JIRA_TICKET> [ISSUE_TYPE]
     - `fix`: bug fix for the user
     - `refactor`: code refactoring (e.g. renaming a variable)
     - `chore`: anything else (build tasks, documentation, style, etc.)
+- `PR_TITLE` (Optional): Additional descriptive text for the PR title
+  - Will be appended after the branch name
+  - If provided, PR title will be: "<branch_name>: <PR_TITLE>"
+  - If omitted, PR title will just be the branch name
+
 
 ### Options
 
@@ -36,8 +41,11 @@ gh start-work <JIRA_TICKET> [ISSUE_TYPE]
 # Start work on a feature
 gh start-work PROJ-123
 
-# Start work on a bug fix
-gh start-work PROJ-456 fix
+# Start work on a feature with just a PR title (uses default feat type)
+gh start-work PROJ-123 "Add login functionality"
+
+# Start work on a bug fix with a custom PR title
+gh start-work PROJ-456 fix "Fix login button styling"
 
 # Start work on a refactor
 gh start-work PROJ-789 refactor
@@ -55,7 +63,7 @@ When you run this command, it will:
 3. Commit the updated `.changes.md` file
 4. Push the branch to the remote repository
 5. Create a pull request in DRAFT state with:
-   - Title: Branch name
+   - Title: Branch name (and optional PR title if provided)
    - Body: "Work started on <branch_name>"
    - Base branch: main
 

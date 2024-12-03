@@ -20,17 +20,18 @@ gh alias set --clobber start-work '!f() { \
     return 0; \
   fi; \
   JIRA_TICKET="$1"; \
-  ISSUE_TYPE=${2:-feat}; \
   if [[ -z "$JIRA_TICKET" ]]; then echo "Error: JIRA_TICKET_NUMBER is required"; exit 1; fi; \
-  if [[ ! "$ISSUE_TYPE" =~ ^(feat|fix|refactor|chore)$ ]]; then \
-    echo "Error: ISSUE_TYPE must be one of: feat, fix, refactor, chore"; \
-    echo ""; \
-    echo "Valid types:"; \
-    echo "  feat     : new feature for the user"; \
-    echo "  fix      : bug fix for the user"; \
-    echo "  refactor : code refactoring"; \
-    echo "  chore    : build tasks, documentation, style, etc."; \
-    exit 1; \
+  shift; \
+  ISSUE_TYPE="feat"; \
+  PR_TITLE=""; \
+  # Check if next argument is an issue type \
+  if [[ "$1" =~ ^(feat|fix|refactor|chore)$ ]]; then \
+    ISSUE_TYPE="$1"; \
+    shift; \
+  fi; \
+  # Any remaining argument is treated as PR title \
+  if [[ -n "$1" ]]; then \
+    PR_TITLE="$1"; \
   fi; \
   if ! git remote get-url origin >/dev/null 2>&1; then \
     echo "Error: No origin remote found. Please set up your git remote first."; \
@@ -40,7 +41,7 @@ gh alias set --clobber start-work '!f() { \
   REPO=$(git config --get remote.origin.url | sed "s/.*github.com[:/]\(.*\)\.git/\1/"); \
   BRANCH_NAME="${ISSUE_TYPE}/${JIRA_TICKET// /_}"; \
   git checkout -b "$BRANCH_NAME" && \
-  echo -e "\n# ${BRANCH_NAME}" >> .changes.md && \
+  echo "\n# ${BRANCH_NAME}" >> .changes.md && \
   git add .changes.md && \
   git commit -m "chore: initialize ${BRANCH_NAME}" && \
   git push -u origin "$BRANCH_NAME" && \

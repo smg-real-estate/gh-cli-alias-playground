@@ -19,8 +19,16 @@ gh start-work <JIRA_TICKET> [ISSUE_TYPE]
 ### Arguments
 
 - `JIRA_TICKET` (Required): The Jira ticket number/ID that this work relates to
-- `ISSUE_TYPE` (Optional): Type of issue you're working on. Defaults to "feature"
-  - Valid values: `feature`, `bug`, `maintenance`, `chore`
+- `ISSUE_TYPE` (Optional): Type of issue you're working on. Defaults to "feat"
+  - Valid values:
+    - `feat`: new feature for the user
+    - `fix`: bug fix for the user
+    - `refactor`: code refactoring (e.g. renaming a variable)
+    - `chore`: anything else (build tasks, documentation, style, etc.)
+- `PR_TITLE` (Optional): Additional descriptive text for the PR title
+  - Will be appended after the branch name
+  - If provided, PR title will be: "<branch_name>: <PR_TITLE>"
+  - If omitted, PR title will just be the branch name
 
 ### Options
 
@@ -54,7 +62,7 @@ When you run this command, it will:
 3. Commit the updated `.changes.md` file
 4. Push the branch to the remote repository
 5. Create a pull request in DRAFT state with:
-   - Title: Branch name
+   - Title: Branch name (and optional PR title if provided)
    - Body: "Work started on <branch_name>"
    - Base branch: main
 

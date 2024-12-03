@@ -16,11 +16,18 @@ gh alias set --clobber start-work '!f() { \
     return 0; \
   fi; \
   JIRA_TICKET="$1"; \
-  ISSUE_TYPE=${2:-feature}; \
   if [[ -z "$JIRA_TICKET" ]]; then echo "Error: JIRA_TICKET_NUMBER is required"; exit 1; fi; \
-  if [[ ! "$ISSUE_TYPE" =~ ^(feature|bug|maintenance|chore)$ ]]; then \
-    echo "Error: ISSUE_TYPE must be feature, bug, maintenance, or chore"; \
-    exit 1; \
+  shift; \
+  ISSUE_TYPE="feat"; \
+  PR_TITLE=""; \
+  # Check if next argument is an issue type \
+  if [[ "$1" =~ ^(feat|fix|refactor|chore)$ ]]; then \
+    ISSUE_TYPE="$1"; \
+    shift; \
+  fi; \
+  # Any remaining argument is treated as PR title \
+  if [[ -n "$1" ]]; then \
+    PR_TITLE="$1"; \
   fi; \
   if ! git remote get-url origin >/dev/null 2>&1; then \
     echo "Error: No origin remote found. Please set up your git remote first."; \

@@ -32,8 +32,11 @@ gh start-work <JIRA_TICKET> [ISSUE_TYPE]
 # Start work on a feature
 gh start-work PROJ-123
 
-# Start work on a bug fix
-gh start-work PROJ-456 bug
+# Start work on a feature with just a PR title (uses default feat type)
+gh start-work PROJ-123 "Add login functionality"
+
+# Start work on a bug fix with a custom PR title
+gh start-work PROJ-456 fix "Fix login button styling"
 
 # Start work on a maintenance task
 gh start-work PROJ-789 maintenance

@@ -8,8 +8,12 @@ gh alias set --clobber start-work '!f() { \
     echo ""; \
     echo "Arguments:"; \
     echo "  JIRA_TICKET    Required. The Jira ticket number/ID"; \
-    echo "  ISSUE_TYPE     Optional. Type of issue (default: feature)"; \
-    echo "                 Valid values: feature, bug, maintenance, chore"; \
+    echo "  ISSUE_TYPE     Optional. Type of issue (default: feat)"; \
+    echo "                 Valid values:"; \
+    echo "                   feat     : new feature for the user"; \
+    echo "                   fix      : bug fix for the user"; \
+    echo "                   refactor : code refactoring"; \
+    echo "                   chore    : build tasks, documentation, style, etc."; \
     echo ""; \
     echo "Options:"; \
     echo "  --help         Show this help message"; \

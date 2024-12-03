@@ -30,6 +30,7 @@ gh start-work <JIRA_TICKET> [ISSUE_TYPE]
   - If provided, PR title will be: "<branch_name>: <PR_TITLE>"
   - If omitted, PR title will just be the branch name
 
+
 ### Options
 
 - `--help`: Display help information about the command
@@ -46,8 +47,8 @@ gh start-work PROJ-123 "Add login functionality"
 # Start work on a bug fix with a custom PR title
 gh start-work PROJ-456 fix "Fix login button styling"
 
-# Start work on a maintenance task
-gh start-work PROJ-789 maintenance
+# Start work on a refactor
+gh start-work PROJ-789 refactor
 
 # Start work on a chore
 gh start-work PROJ-101 chore

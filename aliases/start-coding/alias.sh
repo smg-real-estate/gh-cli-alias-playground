@@ -1,8 +1,8 @@
 #!/bin/bash
 
-gh alias set --clobber start-work '!f() { \
+gh alias set --clobber start-coding '!f() { \
   if [ "$1" = "--help" ]; then \
-    echo "Usage: gh start-work <JIRA_TICKET> [ISSUE_TYPE]"; \
+    echo "Usage: gh start-coding <JIRA_TICKET> [ISSUE_TYPE]"; \
     echo ""; \
     echo "Start work on a new feature by creating a branch and PR"; \
     echo ""; \

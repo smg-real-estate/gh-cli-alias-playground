@@ -1,19 +1,31 @@
-# Start Work GitHub CLI Alias
+# Start Coding GitHub CLI Alias
 
 A GitHub CLI alias that helps streamline the process of starting work on a new task by automating branch creation and pull request setup.
 
 ## Installation
 
+### Prerequisites
+
+Before installing, ensure you have:
+- [GitHub CLI](https://cli.github.com/) installed (`gh`)
+- GitHub CLI authenticated (`gh auth login`)
+- Git installed and configured
+
 This alias is installed automatically when you run the installation script: 
 
 ```bash
-./scripts/install-aliases.sh
+source "alias.sh"
+```
+
+2. Verify the installation:
+```bash
+gh alias list | grep start-coding
 ```
 
 ## Usage
 
 ```bash
-gh start-work <JIRA_TICKET> [ISSUE_TYPE]
+gh start-coding <JIRA_TICKET> [ISSUE_TYPE] [PR_TITLE]
 ```
 
 ### Arguments
@@ -39,19 +51,19 @@ gh start-work <JIRA_TICKET> [ISSUE_TYPE]
 
 ```bash
 # Start work on a feature
-gh start-work PROJ-123
+gh start-coding PROJ-123
 
 # Start work on a feature with just a PR title (uses default feat type)
-gh start-work PROJ-123 "Add login functionality"
+gh start-coding PROJ-123 "Add login functionality"
 
 # Start work on a bug fix with a custom PR title
-gh start-work PROJ-456 fix "Fix login button styling"
+gh start-coding PROJ-456 fix "Fix login button styling"
 
 # Start work on a refactor
-gh start-work PROJ-789 refactor
+gh start-coding PROJ-789 refactor
 
 # Start work on a chore
-gh start-work PROJ-101 chore
+gh start-coding PROJ-101 chore
 ```
 
 ## What it does
@@ -70,7 +82,6 @@ When you run this command, it will:
 ## Prerequisites
 
 - Git repository with an origin remote configured
-- GitHub CLI installed and authenticated
 - Write access to the repository
 
 ## Error Handling

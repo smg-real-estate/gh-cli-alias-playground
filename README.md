@@ -12,16 +12,16 @@ A collection of useful GitHub CLI aliases with integrated testing.
 ```
 ## Available Aliases
 
-### start-work
+### start-coding
 
 Creates a new branch and PR for starting work on a ticket.
 
 Usage:
 ```bash
-gh start-work <JIRA_TICKET> [ISSUE_TYPE]
+gh start-coding <JIRA_TICKET> [ISSUE_TYPE]
 ```
 
-See [start-work documentation](aliases/start-work/README.md) for more details.
+See [start-coding documentation](aliases/start-coding/README.md) for more details.
 
 ## Development
 

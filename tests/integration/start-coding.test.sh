@@ -16,19 +16,19 @@ echo "Test helpers loaded successfully"
 
 test_start_work_help() {
     echo "\nTesting help command..."
-    echo "Running: gh start-work --help"
-    output=$(run_command gh start-work --help)
+    echo "Running: gh start-coding --help"
+    output=$(run_command gh start-coding --help)
     status=$?
     
     assert_equals 0 "$status" "Help command should exit with 0"
     first_line=$(echo "$output" | head -n1)
-    assert_equals "Usage: gh start-work <JIRA_TICKET> [ISSUE_TYPE]" "$first_line" "Help message should show usage"
+    assert_equals "Usage: gh start-coding <JIRA_TICKET> [ISSUE_TYPE]" "$first_line" "Help message should show usage"
 }
 
 test_start_work_invalid_type() {
     echo "\nTesting invalid type..."
-    echo "Running: gh start-work INTEGRATION_TEST-123 invalid_type"
-    output=$(run_command gh start-work INTEGRATION_TEST-123 invalid_type)
+    echo "Running: gh start-coding INTEGRATION_TEST-123 invalid_type"
+    output=$(run_command gh start-coding INTEGRATION_TEST-123 invalid_type)
     status=$?
     
     assert_equals 1 "$status" "Invalid type should exit with 1"
@@ -43,7 +43,7 @@ run_tests() {
         return 0
     fi
 
-    echo "\n=== Running start-work tests ==="
+    echo "\n=== Running start-coding tests ==="
     echo "Verifying gh CLI installation..."
     if ! command -v gh >/dev/null 2>&1; then
         echo "Error: GitHub CLI (gh) is not installed"

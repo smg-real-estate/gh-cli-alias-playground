@@ -1,8 +1,11 @@
 #!/bin/bash
 
-gh alias set --clobber start-work '!f() { \
+# Get alias name from first argument or use default
+ALIAS_NAME="${1:-start-coding}"
+
+gh alias set --clobber "$ALIAS_NAME" '!f() { \
   if [ "$1" = "--help" ]; then \
-    echo "Usage: gh start-work <JIRA_TICKET> [ISSUE_TYPE]"; \
+    echo "Usage: gh '"$ALIAS_NAME"' <JIRA_TICKET> [ISSUE_TYPE]"; \
     echo ""; \
     echo "Start work on a new feature by creating a branch and PR"; \
     echo ""; \
@@ -46,4 +49,13 @@ gh alias set --clobber start-work '!f() { \
   git commit -m "chore: initialize ${BRANCH_NAME}" && \
   git push -u origin "$BRANCH_NAME" && \
   gh pr create --repo "$REPO" --title "$BRANCH_NAME" --body "Work started on $BRANCH_NAME" --base main --draft; \
-}; f "$@"' 
+}; f "$@"'
+
+# Echo usage information after installation
+echo "✓ Alias installed successfully as: $ALIAS_NAME"
+echo ""
+echo "Usage examples:"
+echo "  gh $ALIAS_NAME PROJ-123                           # Start a feature"
+echo "  gh $ALIAS_NAME PROJ-123 \"Add login\"              # Feature with title"
+echo "  gh $ALIAS_NAME PROJ-456 fix \"Fix login button\"    # Bug fix with title"
+echo "  gh $ALIAS_NAME --help                            # Show help"

@@ -18,10 +18,10 @@ Before installing, ensure you have:
 
 ```bash
 # Default installation (as "start-coding")
-source aliases/start-coding/alias.sh
+source alias.sh
 
 # Or with a custom alias name
-source aliases/start-coding/alias.sh start-feature
+source alias.sh start-feature
 ```
 
 3. Verify the installation:

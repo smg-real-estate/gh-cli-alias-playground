@@ -2,6 +2,20 @@
 
 A GitHub CLI alias that helps streamline the process of starting work on a new task by automating branch creation and pull request setup.
 
+## What is this?
+
+This tool provides a simple command that:
+- Creates a standardized branch name from your ticket (e.g., `feat/PROJ-123`)
+- Tracks branch creation in a changes log
+- Creates a draft PR automatically
+- Supports different work types (feature, fix, refactor, chore)
+
+Perfect for teams that want to:
+- Maintain consistent branch naming
+- Automate PR creation workflow
+- Track work progress through branches
+- Reduce manual setup time when starting new tasks
+
 ## Prerequisites
 
 Before installing, ensure you have:

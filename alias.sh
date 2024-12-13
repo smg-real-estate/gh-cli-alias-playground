@@ -38,9 +38,9 @@ gh alias set --clobber "$ALIAS_NAME" '!f() { \
     ISSUE_TYPE="$1"; \
     shift; \
   fi; \
-  # Any remaining argument is treated as PR title \
-  if [[ -n "$1" ]]; then \
-    PR_TITLE=": $1"; \
+  # Remaining arguments form the PR title \
+  if [[ $# -gt 0 ]]; then \
+    PR_TITLE=": $*"; \
   fi; \
   if ! git remote get-url origin >/dev/null 2>&1; then \
     echo "Error: No origin remote found. Please set up your git remote first."; \
@@ -54,7 +54,12 @@ gh alias set --clobber "$ALIAS_NAME" '!f() { \
   git add .changes.md && \
   git commit -m "chore: initialize ${BRANCH_NAME}" && \
   git push -u origin "$BRANCH_NAME" && \
-  gh pr create --repo "$REPO" --title "${BRANCH_NAME}${PR_TITLE}" --body "Work started on $BRANCH_NAME" --base main --draft; \
+  # Check if PR already exists
+  if ! gh pr view "$BRANCH_NAME" >/dev/null 2>&1; then \
+    gh pr create --repo "$REPO" --title "${BRANCH_NAME}${PR_TITLE}" --body "Work started on $BRANCH_NAME" --base main --draft; \
+  else \
+    echo "Pull request already exists for branch $BRANCH_NAME"; \
+  fi; \
 }; f "$@"'
 
 # Echo usage information after installation

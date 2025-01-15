@@ -49,6 +49,8 @@ gh alias set --clobber "$ALIAS_NAME" '!f() { \
   fi; \
   REPO=$(git config --get remote.origin.url | sed "s/.*github.com[:/]\(.*\)\.git/\1/"); \
   BRANCH_NAME="${ISSUE_TYPE}/${JIRA_TICKET// /_}"; \
+  git checkout main && \
+  git pull && \
   git checkout -b "$BRANCH_NAME" && \
   echo "\n# ${BRANCH_NAME}" >> .changes.md && \
   git add .changes.md && \

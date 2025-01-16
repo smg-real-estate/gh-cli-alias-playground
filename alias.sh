@@ -12,7 +12,7 @@ gh alias set --clobber "$ALIAS_NAME" '!f() { \
   if [ "$1" = "--help" ]; then \
     echo "Usage: gh '"$ALIAS_NAME"' <JIRA_TICKET> [ISSUE_TYPE] [PR_TITLE]"; \
     echo ""; \
-    echo "Start work on a new feature by creating a branch and PR"; \
+    echo "Start work on a new feature by creating a branch and PR (based on main after update)"; \
     echo ""; \
     echo "Arguments:"; \
     echo "  JIRA_TICKET    Required. The Jira ticket number/ID"; \

@@ -50,9 +50,7 @@ gh alias set --clobber "$ALIAS_NAME" '!f() { \
   REPO=$(git config --get remote.origin.url | sed "s/.*github.com[:/]\(.*\)\.git/\1/"); \
   BRANCH_NAME="${ISSUE_TYPE}/${JIRA_TICKET// /_}"; \
   git checkout -b "$BRANCH_NAME" && \
-  echo "\n# ${BRANCH_NAME}" >> .changes.md && \
-  git add .changes.md && \
-  git commit -m "chore: initialize ${BRANCH_NAME}" && \
+  git commit --allow-empty -m "Initialize ${BRANCH_NAME}" && \
   git push -u origin "$BRANCH_NAME" && \
   # Check if PR already exists
   if ! gh pr view "$BRANCH_NAME" >/dev/null 2>&1; then \

@@ -12,7 +12,7 @@ gh alias set --clobber "$ALIAS_NAME" '!f() { \
   if [ "$1" = "--help" ]; then \
     echo "Usage: gh '"$ALIAS_NAME"' <JIRA_TICKET> [ISSUE_TYPE] [PR_TITLE]"; \
     echo ""; \
-    echo "Start work on a new feature by creating a branch and PR"; \
+    echo "Start work on a new feature by creating a branch and PR (based on main after update)"; \
     echo ""; \
     echo "Arguments:"; \
     echo "  JIRA_TICKET    Required. The Jira ticket number/ID"; \
@@ -47,12 +47,23 @@ gh alias set --clobber "$ALIAS_NAME" '!f() { \
     echo "Use: git remote add origin <repository-url>"; \
     exit 1; \
   fi; \
+  if ! git diff --cached --quiet; then \
+    echo "You have uncommitted staged changes. By continuing this will include those changes in the first commit of the new branch and PR."; \
+    read -r -p "Do you want to continue? (y/n): " choice; \
+    case "$choice" in \
+        [yY]) echo "Continuing...";; \
+        [nN]) echo "New branch and PR creation aborted."; \
+          exit 1;; \
+        *) echo "Invalid choice. New branch and PR creation aborted."; \
+          exit 1;; \
+    esac; \
+  fi; \
   REPO=$(git config --get remote.origin.url | sed "s/.*github.com[:/]\(.*\)\.git/\1/"); \
   BRANCH_NAME="${ISSUE_TYPE}/${JIRA_TICKET// /_}"; \
+  git checkout main && \
+  git pull && \
   git checkout -b "$BRANCH_NAME" && \
-  echo "\n# ${BRANCH_NAME}" >> .changes.md && \
-  git add .changes.md && \
-  git commit -m "chore: initialize ${BRANCH_NAME}" && \
+  git commit --allow-empty -m "chore: initialize ${BRANCH_NAME}" && \
   git push -u origin "$BRANCH_NAME" && \
   # Check if PR already exists
   if ! gh pr view "$BRANCH_NAME" >/dev/null 2>&1; then \

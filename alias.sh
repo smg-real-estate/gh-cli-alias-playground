@@ -47,6 +47,17 @@ gh alias set --clobber "$ALIAS_NAME" '!f() { \
     echo "Use: git remote add origin <repository-url>"; \
     exit 1; \
   fi; \
+  if ! git diff --cached --quiet; then \
+    echo "You have uncommitted staged changes. By continuing this will include those changes in the first commit of the new branch and PR."; \
+    read -r -p "Do you want to continue? (y/n): " choice; \
+    case "$choice" in \
+        [yY]) echo "Continuing...";; \
+        [nN]) echo "New branch and PR creation aborted."; \
+          exit 1;; \
+        *) echo "Invalid choice. New branch and PR creation aborted."; \
+          exit 1;; \
+    esac; \
+  fi; \
   REPO=$(git config --get remote.origin.url | sed "s/.*github.com[:/]\(.*\)\.git/\1/"); \
   BRANCH_NAME="${ISSUE_TYPE}/${JIRA_TICKET// /_}"; \
   git checkout main && \

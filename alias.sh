@@ -52,9 +52,7 @@ gh alias set --clobber "$ALIAS_NAME" '!f() { \
   git checkout main && \
   git pull && \
   git checkout -b "$BRANCH_NAME" && \
-  echo "\n# ${BRANCH_NAME}" >> .changes.md && \
-  git add .changes.md && \
-  git commit -m "chore: initialize ${BRANCH_NAME}" && \
+  git commit --allow-empty -m "chore: initialize ${BRANCH_NAME}"
   git push -u origin "$BRANCH_NAME" && \
   # Check if PR already exists
   if ! gh pr view "$BRANCH_NAME" >/dev/null 2>&1; then \
